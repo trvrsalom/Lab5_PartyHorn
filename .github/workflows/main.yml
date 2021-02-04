@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: fun comment
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  pull_request:
+  issues:
+    types: [opened]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  comment:
+    if: github.event_name == 'pull_request' || github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add funny comment
+        uses: Marta83/funny-comment-action@ad32f59d21d68646d88baa8dc6f6e6963e142908
+        id: FunnyComment
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIPHY_TOKEN: ${{ secrets.GIPHY_TOKEN }}
+          comment_type: 'gif'
+          
